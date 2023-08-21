@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
 const RegistrationForm = ({ setToken }) => {
+  const [firstName, setFirstName] = useState("")
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
 
   const handleRegistration = async (e) => {
@@ -12,7 +13,7 @@ const RegistrationForm = ({ setToken }) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, email, password }),
+      body: JSON.stringify({ FirstName, LastName, username, password }),
     });
 
     if (response.ok) {
