@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 router.get("/", (req, res) => {
-  res.send("You have reached the auth router");
+  res.send("You found the router, congrats");
 });
 
 //REGISTERS A USER
@@ -31,7 +31,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-//Checks if user is valid
+//Checks if login is valid
 router.post("/signIn", async (req, res) => {
   const { username, password } = req.body;
 
@@ -56,7 +56,6 @@ router.post("/signIn", async (req, res) => {
 //Route that sends the user based on the given token
 router.get("/me", async (req, res) => {
   //Checks the request for the userId which 
-  //was set by our middleware in server/index.js
   try {
     const user = await prisma.user.findUnique({
       where: { id: req.userId },

@@ -3,83 +3,83 @@ const { requireUser } = require("./utils");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-//Returns all the trains (with their conductors)
+
 router.get("/", requireUser, async (req, res) => {
   try {
-    const trains = await prisma.train.findMany({
+    const post = await prisma.post.findMany({
       include: {
-        conductors: true,
+        user: true,
       },
     });
-    res.send(trains);
+    res.send(post);
   } catch (error) {
     res.send(error);
   }
 });
 
-//Returns a train with specified id
+//Returns a post with specified id
 router.get("/:id", requireUser, async (req, res) => {
   try {
-    const train = await prisma.train.findUnique({
+    const post = await prisma.post.findUnique({
       where: {
         id: Number(req.params.id),
       },
     });
-    if (!train) {
-      res.send({ error: true, message: "Train Not Found" });
+    if (!post) {
+      res.send({ error: true, message: "post Not Found" });
     } else {
-      res.send(train);
+      res.send(post);
     }
   } catch (error) {
     res.send(error);
   }
 });
 
-//Creates a new train
+//Creates a new post
 router.post("/", requireUser, async (req, res) => {
   try {
-    const train = await prisma.train.create({
+    const post = await prisma.post.create({
       data: req.body,
     });
 
-    res.send(train);
+    res.send(post);
   } catch (error) {
     res.send(error);
   }
 });
 
-//Updates train with specified id
+//Updates post with specified id
 router.put("/:id", requireUser, async (req, res) => {
   try {
-    const train = await prisma.train.update({
+    const post = await prisma.post.update({
       where: {
         id: Number(req.params.id),
       },
       data: req.body,
     });
-    if (!train) {
-      res.send({ error: true, message: "Train Not Found" });
+    if (!post) {
+      res.send({ error: true, message: "post Not Found" });
     } else {
-      res.send(train);
+      res.send(post);
     }
   } catch (error) {
     res.send(error);
   }
 });
 
-//Deletes a train
+//Deletes a post
 router.delete("/:id", requireUser, async (req, res) => {
   try {
-    const train = await prisma.train.delete({
+    const post = await prisma.post.delete({
       where: {
         id: Number(req.params.id),
       },
     });
 
-    if (!train) {
-      res.send({ error: true, message: "Train Not Found" });
+    if (!post) {
+      res.send({ error: true, message: "post Not Found" });
     } else {
-      res.send(train);
+      res.send(post);
     }
   } catch (error) {
     res.send(error);

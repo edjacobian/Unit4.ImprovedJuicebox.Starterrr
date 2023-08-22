@@ -1,19 +1,17 @@
 import { useState } from "react";
-import Trains from "./components/Trains";
-import AuthForm from "./components/AuthForm";
-import RegistrationForm from "./components/RegistrationForm";
+import Posts from "./components/Posts.jsx";
+import AuthForm from "./components/AuthForm.jsx";
 function App() {
   const [token, setToken] = useState(false);
 
   return (
     <>
-      <h1>REACT TRAIN APP</h1>
-      <p>Choo Choo!</p>
-      <RegistrationForm />
+      <h1>Welcome to the EUD</h1>
+      <p>Edwardo University Database</p>
 
       {token ? <button onClick={() => setToken(false)}>Sign Out</button> : ""}
 
-      {token ? <Trains token={token} /> : <AuthForm setToken={setToken} />}
+      {token ? <Posts token={token} /> : <AuthForm setToken={setToken} />}
     </>
   );
 }

@@ -28,7 +28,7 @@ const AuthForm = ({ setToken }) => {
 
   return (
     <>
-      <p>Sign in to see trains</p>
+      <p>Sign in to see posts</p>
       {alert}
       <form onSubmit={handleSubmit}>
         <label>

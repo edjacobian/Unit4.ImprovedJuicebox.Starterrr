@@ -3,83 +3,83 @@ const router = require("express").Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-//Returns all the conductors (with their train)
+//Returns all the users (posts)
 router.get("/", async (req, res) => {
   try {
-    const conductors = await prisma.conductor.findMany({
+    const user = await prisma.post.findMany({
       include: {
-        train: true,
+        post: true,
       },
     });
-    res.send(conductors);
+    res.send(user);
   } catch (error) {
     res.send(error);
   }
 });
 
-//Returns a conductor with specified id
+//Returns a user with specified id
 router.get("/:id", async (req, res) => {
   try {
-    const conductor = await prisma.conductor.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         id: Number(req.params.id),
       },
     });
-    if (!conductor) {
-      res.send({ error: true, message: "Conductor Not Found" });
+    if (!user) {
+      res.send({ error: true, message: "Sorry! User Not Found" });
     } else {
-      res.send(conductor);
+      res.send(user);
     }
   } catch (error) {
     res.send(error);
   }
 });
 
-//Creates a new conductor
+//Creates a new user
 router.post("/", async (req, res) => {
   try {
-    const conductor = await prisma.conductor.create({
+    const user = await prisma.user.create({
       data: req.body,
     });
 
-    res.send(conductor);
+    res.send(user);
   } catch (error) {
-    res.send(conductor);
+    res.send(user);
   }
 });
 
-//Updates conductor with specified id
+//Updates user with specified id
 router.put("/:id", async (req, res) => {
   try {
-    const conductor = await prisma.conductor.update({
+    const user = await prisma.user.update({
       where: {
         id: Number(req.params.id),
       },
       data: req.body,
     });
-    if (!conductor) {
-      res.send({ error: true, message: "Conductor Not Found" });
+    if (!user) {
+      res.send({ error: true, message: "Sorry! User Not Found" });
     } else {
-      res.send(conductor);
+      res.send(user);
     }
   } catch (error) {
     res.send(error);
   }
 });
 
-//Deletes a conductor
+//Deletes a user
 router.delete("/:id", async (req, res) => {
   try {
-    const conductor = await prisma.conductor.delete({
+    const user = await prisma.user.delete({
       where: {
         id: Number(req.params.id),
       },
     });
 
-    if (!conductor) {
-      res.send({ error: true, message: "Conductor Not Found" });
+    if (!user) {
+      res.send({ error: true, message: "Sorry! User Not Found" });
     } else {
-      res.send(conductor);
+      res.send(user);
     }
   } catch (error) {
     res.send(error);
